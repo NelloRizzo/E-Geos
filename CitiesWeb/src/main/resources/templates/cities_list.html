@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta charset="utf-8">
+<title>Elenco delle citt&agrave;</title>
+<style type="text/css">
+body {
+	font-family: Helvetica, Calibri, Arial, sans-serif;
+	width: 600px;
+	margin: 0 auto;
+}
+
+a.paginator {
+	text-decoration: none;
+	width: 120px;
+	margin: 0 3px 0 3px;
+}
+
+a.paginator:hover {
+	background-color: lightgray;
+}
+
+.pager {
+	text-align: center;
+}
+
+.counter {
+	background-color: lightgray;
+}
+
+table {
+	width: 100%;
+	border: 1px solid gray;
+}
+</style>
+</head>
+<body>
+	<h1>Citt&agrave; in Archivio</h1>
+	<p
+		th:text="'In archivio sono presenti ' + ${count} + ' localit&agrave;.'" />
+	<table>
+		<thead>
+			<tr>
+				<td colspan="5">
+				
+				</td>
+			</tr>
+			<tr>
+				<td colspan="5" class="pager"><a class="paginator"
+					th:href="@{cities?page=0}">&nbsp;|&lt;&nbsp;</a><a
+					class="paginator" th:href="@{'cities?page=' + ${previousPage}}">&nbsp;&lt;&nbsp;</a>
+					<span class="counter"><span th:text="${currentPage+1}"></span>/<span
+						th:text="${totalPages}"></span></span> <a class="paginator"
+					th:href="@{'cities?page=' + ${nextPage}}">&nbsp;&gt;&nbsp;</a><a
+					class="paginator" th:href="@{'cities?page=' + ${lastPage}}">&nbsp;&gt;|&nbsp;</a></td>
+			<tr>
+				<th>Denominazione</th>
+				<th>Provincia</th>
+				<th>Regione</th>
+				<th>View on Maps</th>
+				<th>Get map</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="city : ${cities}">
+				<td th:text="${city.getName()}" />
+				<td th:text="${city.getProvince()}" />
+				<td th:text="${city.getRegion()}" />
+				<td><a
+					th:href="@{'https://maps.google.it?q=' + ${city.getName()} + ',' + ${city.getRegion()}}"
+					target="blank">...</a></td>
+				<td><a th:href="@{'cities/' + ${city.getId()} + '/map'}"
+					target="blank">...</a></td>
+			</tr>
+		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="5" class="pager"><a class="paginator"
+					th:href="@{cities?page=0}">&nbsp;|&lt;&nbsp;</a><a
+					class="paginator" th:href="@{'cities?page=' + ${previousPage}}">&nbsp;&lt;&nbsp;</a>
+					<a class="paginator" th:href="@{'cities?page=' + ${nextPage}}">&nbsp;&gt;&nbsp;</a><a
+					class="paginator" th:href="@{'cities?page=' + ${lastPage}}">&nbsp;&gt;|&nbsp;</a></td>
+			</tr>
+		</tfoot>
+	</table>
+</body>
+</html>

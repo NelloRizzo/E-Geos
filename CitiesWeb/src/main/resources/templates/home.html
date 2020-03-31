@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Gestione Località</title>
+<meta charset="utf-8">
+<style type="text/css">
+body {
+	font-family: Helvetica, Calibri, Arial, sans-serif;
+	width: 600px;
+	margin: 0 auto;
+}
+</style>
+</head>
+<body>
+	<h1>Gestione Località</h1>
+	<h2>Path di invocazione</h2>
+	<ul>
+		<li>Pattern per le invocazioni REST: <code>/api/v1/{controller}/{params}</code>
+			<dl>
+				<dt>Esempio:</dt>
+				<dd>
+					<a href="/api/v1/populate/cities" target="_blank"><code>GET
+							/api/v1/populate/cities</code></a> =&gt; carica sul database l'elenco delle città.
+				</dd>
+				<dd>
+					<a href="/api/v1/cities" target="_blank"><code>GET
+							/api/v1/cities</code></a> =&gt; ottiene l'elenco delle città in archivio.
+				</dd>
+				<dd>
+					<a href="/api/v1/cities/1" target="_blank"><code>GET
+							/api/v1/cities/1</code></a> =&gt; ottiene i dati della città con
+					<code>id = 1</code>
+					.
+				</dd>
+				<dd>
+					<a href="/api/v1/cities/1/geo" target="_blank"><code>GET
+							/api/v1/cities/1/geo</code></a> =&gt; ottiene i dati della città con
+					<code>id = 1</code>
+					e la posizione geografica prelevata da Google Maps (se
+					disponibile).
+				</dd>
+			</dl>
+		</li>
+		<li>Visualizzazione web
+			<dl>
+				<dt>Gestione delle città</dt>
+				<dd>
+					<a href="/cities" target="_blank">Elenco delle città</a>
+				</dd>
+			</dl>
+		</li>
+	</ul>
+	</div>
+</body>
+</html>

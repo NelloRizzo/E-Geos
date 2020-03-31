@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="it">
+<head>
+<title>Cities Management Web App</title>
+<link rel='shortcut icon' href='favicon.ico' type='image/x-icon' />
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
+
+<meta charset="UTF-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+<body>
+	<div class="container">
+		<h1>Calcolo del Codice Fiscale</h1>
+		<form th:action="@{/fiscalcodecreator}" th:object="${viewModel}"
+			method="post">
+			<fieldset>
+				<legend>Dati anagrafici</legend>
+				<div class="form-group row">
+					<label for="${name}" class="col-sm-2 col-form-label">Nome</label>
+					<div class="col-sm-10">
+						<input th:field="*{name}" required class="form-control"
+							placeholder="campo richiesto">
+					</div>
+				</div>
+				<div class="form-group row">
+					<label for="${surname}" class="col-sm-2 col-form-label">Cognome</label>
+					<div class="col-sm-10">
+						<input th:field="*{surname}" required class="form-control"
+							placeholder="campo richiesto">
+					</div>
+				</div>
+				<div class="form-group row">
+					<label for="birthday" class="col-sm-2 col-form-label">Data
+						di nascita</label>
+					<div class="col-sm-5">
+						<input type="date" class="form-control" th:field="*{birthday}"
+							required>
+					</div>
+				</div>
+				<div class="form-group row">
+					<label for="gender" class="col-sm-2 col-form-label">Sesso</label>
+					<div class="col-sm-2">
+						<select th:field="*{gender}" class="form-control">
+							<option th:each="g : *{genders}" th:value="${g}" th:text="${g}"></option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group row">
+					<label for="birthCity" class="col-sm-2 col-form-label">Comune
+						di nascita</label>
+					<div class="col-sm-3">
+						<select class="form-control" id="provinces" th:field="*{birthProvince}"></select>
+					</div>
+					<div class="col-sm-7">
+						<select class="form-control" id="cities" th:field="*{birthCity}"></select>
+					</div>
+
+				</div>
+				<div class="col-sm-10 offset-sm-2">
+					<button type="submit" class="btn btn-primary">Calcola</button>
+					<button type="reset" class="btn">Annulla</button>
+				</div>
+			</fieldset>
+		</form>
+		<div style="padding-top: 15px;"></div>
+		<div th:if="${! viewModel.valid}">
+			<ul class="list-group">
+				<li class="list-group-item list-group-item-danger">Si sono
+					verificati questi errori:</li>
+				<li class="list-group-item" th:each="error : *{viewModel.errors}"
+					th:text="${error}"></li>
+			</ul>
+		</div>
+		<div th:if="${viewModel.fiscalCode != null}"
+			class="text-center alert-success col-sm-8 offset-sm-2 display-4">
+			<span class="light">Codice Fiscale:</span> <span
+				th:text="${viewModel.fiscalCode}" class="font-weight-bold"></span>
+		</div>
+	</div>
+	<div class="d-none" style="visibility: hidden;">
+		<input type="hidden" th:value="*{viewModel.birthCity}" id="_city">
+		<input type="hidden" th:value="*{viewModel.birthProvince}"
+			id="_province">
+	</div>
+	<script src="https://code.jquery.com/jquery-3.4.1.js"
+		integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+		crossorigin="anonymous"></script>
+
+	<script type="text/javascript" src="js/citiescombo.js">
+	</script>
+</body>
+</html>
